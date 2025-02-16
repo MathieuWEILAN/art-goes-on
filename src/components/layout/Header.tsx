@@ -34,7 +34,7 @@ const Header = () => {
           ? "fixed top-0 left-0 w-full h-20"
           : "relative w-screen h-screen"
       } flex justify-end items-center z-[100] px-5 gap-4 transition-colors duration-300 ${
-        isModalOpen ? "w-[200px]" : ""
+        isModalOpen ? "!w-[200px]" : ""
       }`}
     >
       <motion.div

@@ -8,8 +8,7 @@ interface CloseProps {
 const Close = ({ isClosing, isModalOpen }: CloseProps) => {
   return (
     <motion.svg
-      width="100px"
-      height="100px"
+      className={`h-10 w-10 lg:h-20 lg:w-20`}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

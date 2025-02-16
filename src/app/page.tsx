@@ -152,18 +152,18 @@ export default function Home() {
           className="h-full w-full"
           initial={{ y: "100%" }}
           animate={{ y: animationCompleteLogo ? "0%" : "100%" }}
-          transition={{ duration: 2, delay: 1, ease: "easeOut" }}
+          transition={{ duration: 2, ease: "easeOut" }}
         >
-          <div className="bg-gradient-to-t from-white via-white/40 to-transparent h-[50vh] absolute bottom-0 left-0 w-full z-10">
+          <div className="bg-gradient-to-t from-white via-white/40 to-transparent h-[50vh] absolute bottom-0 left-0 w-full z-10 pb-20 lg:pb-0">
             <Marquee
               className="flex items-end overflow-hidden h-full"
               speed={200}
               autoFill
-              delay={9}
+              delay={6.5}
             >
               <motion.div
                 style={{ opacity: opacityMarquee }}
-                className="leading-none font-satoshi font-bold text-[20vh] z-20 uppercase"
+                className="leading-none font-satoshi font-bold text-[10vh] lg:text-[20vh] z-20 uppercase"
               >
                 l&apos;art à porter de tous &nbsp;*&nbsp;
               </motion.div>
@@ -172,11 +172,11 @@ export default function Home() {
         </motion.div>
       </motion.section>
       <motion.section className="w-screen h-auto overflow-hidden px-5 flex justify-end items-center">
-        <div className="w-2/3 text-left pt-80  pb-40 flex flex-col justify-center items-start">
-          <Fade direction="up" fraction={0.8}>
+        <div className="w-full lg:w-2/3 text-left pt-80  pb-40 flex flex-col justify-center items-start">
+          <Fade direction="up" fraction={0.5}>
             <h2>Transformez votre espace en galerie d&apos;exception</h2>
           </Fade>
-          <Fade direction="up" fraction={0.8}>
+          <Fade direction="up" fraction={0.5}>
             <p>
               L&apos;art ne se limite pas aux galeries. Il s&apos;invite là où
               on ne l&apos;attend pas. <strong>ArtGoesOn</strong> réinvente la
@@ -187,7 +187,7 @@ export default function Home() {
           </Fade>
         </div>
       </motion.section>
-      <motion.section className="w-screen flex overflow-auto bg-white gap-8 p-8 h-screen relative">
+      <motion.section className="w-full lg:w-screen flex overflow-auto bg-white gap-8 p-4 h-[240px] lg:h-screen relative">
         {showCustomCursor && (
           <motion.div
             className="shadow-xl fixed w-[200px] h-[200px] p-4 rounded-full bg-white flex items-center justify-center text-black pointer-events-none z-50"
@@ -237,7 +237,7 @@ export default function Home() {
         </Swiper>
       </motion.section>
       <motion.section className="w-screen min-h-screen overflow-hidden px-5 flex justify-end items-center">
-        <div className="w-2/3 text-left">
+        <div className="w-full lg:w-2/3 text-left">
           <Fade direction="up" fraction={0.8}>
             <h2 className="">Pourquoi choisir ArtGoesOn ?</h2>
           </Fade>
@@ -289,13 +289,13 @@ export default function Home() {
         </div>
       </motion.section>
       <motion.section className="w-screen h-screen overflow-hidden pl-5 pr-10 flex justify-end items-center relative">
-        <div className="w-2/3 text-left">
+        <div className="w-full lg:w-2/3 text-left">
           <motion.h2
             ref={ref}
             initial={{ opacity: 0 }}
             animate={{ opacity: isInView ? 0.1 : 0 }}
             transition={{ duration: 2 }}
-            className="text-[15vw] -z-10 font-bold h-full absolute top-1/4 left-[40px]"
+            className="text-[15vw] -z-10 font-bold h-full absolute top-[180px] lg:top-1/4 right-[20px] lg:left-[40px]"
           >
             Vous êtes :
           </motion.h2>
@@ -303,7 +303,7 @@ export default function Home() {
             {institutions.map((institution, index) => (
               <Fade
                 direction="up"
-                fraction={1}
+                fraction={0.5}
                 key={index}
                 cascade
                 duration={1000}
@@ -331,15 +331,15 @@ export default function Home() {
       <AnimatePresence>
         {modal && (
           <motion.section
-            className="w-[99.5vw] rounded-bl-[100px] h-screen overflow-hidden flex text-white justify-end items-center fixed top-0 right-0 bg-black z-50"
+            className="w-[99.5vw] rounded-bl-[100px] h-[99vh] overflow-hidden flex text-white justify-end items-center fixed top-0 right-0 bg-black z-50"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.4, delay: isClosing ? 0.8 : 0 }}
           >
-            <motion.div className="w-full text-left relative h-full flex justify-end items-center">
+            <motion.div className="w-full text-left relative h-full flex flex-col lg:flex-row justify-center lg:justify-end items-center">
               <motion.button
-                className="absolute top-10 right-10"
+                className="absolute top-4 right-4 lg:top-0 lg:right-0"
                 onClick={handleModalClose}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -351,44 +351,48 @@ export default function Home() {
               >
                 <Close isClosing={isClosing} isModalOpen={isModalOpen} />
               </motion.button>
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.4, delay: isClosing ? 0 : 1 }}
-                className="w-1/3 ml-10"
-              >
-                <Image
-                  src={modal.image}
-                  alt={modal.name}
-                  className="w-full h-auto object-cover grayscale rounded-br-[100px]"
-                />
-              </motion.div>
-              <div className="flex flex-col gap-4 p-10 h-full justify-center w-2/3">
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.4, delay: isClosing ? 0 : 0.4 }}
+              <div className="flex flex-col lg:flex-row justify-end items-center p-4 lg:p-10">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.4, delay: isClosing ? 0 : 1 }}
+                  className="w-full lg:w-1/3 ml-10 order-2 lg:order-1"
                 >
-                  {modal.name}
-                </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.4, delay: isClosing ? 0.2 : 0.6 }}
-                >
-                  {modal.description}
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.4, delay: isClosing ? 0.4 : 0.8 }}
-                >
-                  {modal.text}
-                </motion.p>
+                  <Image
+                    src={modal.image}
+                    alt={modal.name}
+                    className="w-full h-auto object-cover grayscale rounded-bl-[50px] lg:rounded-br-[0px]"
+                  />
+                </motion.div>
+                <div className="flex flex-col gap-4 p-4 lg:p-10 h-full justify-center w-full lg:w-2/3 order-1 lg:order-2">
+                  <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.4, delay: isClosing ? 0 : 0.4 }}
+                    className="text-2xl lg:text-4xl"
+                  >
+                    {modal.name}
+                  </motion.h2>
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.4, delay: isClosing ? 0.2 : 0.6 }}
+                  >
+                    {modal.description}
+                  </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.4, delay: isClosing ? 0.4 : 0.8 }}
+                    className="text-base lg:text-lg"
+                  >
+                    {modal.text}
+                  </motion.p>
+                </div>
               </div>
             </motion.div>
           </motion.section>
