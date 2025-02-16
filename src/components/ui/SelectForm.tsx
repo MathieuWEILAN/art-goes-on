@@ -1,5 +1,6 @@
 import Select from "react-select";
 import { StylesConfig, GroupBase } from "react-select";
+import { useAnimation } from "../../context/AnimationContext";
 
 interface SelectComponentProps {
   formData: string;
@@ -15,6 +16,7 @@ const SelectComponent = ({
   handleInputChange,
   error,
 }: SelectComponentProps) => {
+  const { isMobile } = useAnimation();
   const options = [
     {
       value: "Hotel & Palace",
@@ -60,7 +62,7 @@ const SelectComponent = ({
       ...styles,
       color: "white",
       padding: 0,
-      margin: 0,
+      margin: "0px",
     }),
     dropdownIndicator: (
       styles,
@@ -92,7 +94,7 @@ const SelectComponent = ({
     }),
     placeholder: (styles) => ({
       ...styles,
-      fontSize: "16px",
+      fontSize: isMobile ? "14px" : "16px",
       color: "white",
       backgroundColor: "black",
       fontFamily: "Satoshi",
@@ -101,13 +103,13 @@ const SelectComponent = ({
     }),
     singleValue: (styles) => ({
       ...styles,
-      fontSize: "18px",
+      fontSize: isMobile ? "14px" : "18px",
       color: "white",
       backgroundColor: "transparent",
       borderBottom: "0px solid #FDE5CA",
       padding: "0",
       paddingBottom: "-5px",
-      margin: 0,
+      margin: "0px",
     }),
     indicatorSeparator: () => ({
       display: "none",
