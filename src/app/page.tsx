@@ -23,6 +23,7 @@ import { Pagination } from "swiper/modules";
 import { Fade } from "react-awesome-reveal";
 import ButtonDefault from "../components/ui/ButtonDefault";
 import Close from "../components/icons/Close";
+import LogoSmall from "../components/icons/LogoSmall";
 
 type Institution = {
   name: string;
@@ -91,7 +92,8 @@ const imagesData = [
   },
 ];
 export default function Home() {
-  const { animationCompleteLogo, isModalOpen, setIsModalOpen } = useAnimation();
+  const { animationCompleteLogo, isModalOpen, setIsModalOpen, isMobile } =
+    useAnimation();
   const { scrollY } = useScroll();
   const [hovered, setHovered] = useState<number | null>(null);
   const ref = React.useRef(null);
@@ -113,7 +115,7 @@ export default function Home() {
   const [isClosing, setIsClosing] = useState(false);
 
   const videoY = useTransform(scrollY, [0, 1000], [0, 1000]);
-  const opacityMarquee = useTransform(scrollY, [0, 1000], [1, 0]);
+  const opacityMarquee = useTransform(scrollY, [0, 850], [1, 0]);
 
   const updateMousePosition = (e: React.MouseEvent) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
@@ -130,6 +132,14 @@ export default function Home() {
     setModal(false);
     setIsModalOpen(false);
   };
+
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div
       className={`overflow-hidden flex flex-col justify-center items-center relative`}
@@ -160,14 +170,15 @@ export default function Home() {
             <Marquee
               className="flex items-end overflow-hidden h-full"
               speed={200}
-              autoFill
               delay={6.5}
+              direction="right"
             >
               <motion.div
                 style={{ opacity: opacityMarquee }}
-                className="leading-none font-satoshi font-bold text-[10vh] lg:text-[20vh] z-20 uppercase"
+                className="leading-none font-satoshi font-bold text-[10vh] lg:text-[20vh] z-10 uppercase flex items-center justify-between"
               >
-                l&apos;art à porter de tous &nbsp;*&nbsp;
+                <span>&nbsp;l&apos;art sans limites&nbsp;</span>
+                <LogoSmall color="black" />
               </motion.div>
             </Marquee>
           </div>
@@ -175,10 +186,18 @@ export default function Home() {
       </motion.section>
       <motion.section className="w-screen h-auto overflow-hidden px-5 flex justify-end items-center">
         <div className="w-full lg:w-2/3 text-left pt-40 lg:pt-80 pb-40 flex flex-col justify-center items-start">
-          <Fade direction="up" fraction={0.3} triggerOnce={true}>
+          <Fade
+            direction="up"
+            fraction={0.3}
+            triggerOnce={isMobile ? true : false}
+          >
             <h2>Transformez votre espace en galerie d&apos;exception</h2>
           </Fade>
-          <Fade direction="up" fraction={0.3} triggerOnce={true}>
+          <Fade
+            direction="up"
+            fraction={0.3}
+            triggerOnce={isMobile ? true : false}
+          >
             <p>
               L&apos;art ne se limite pas aux galeries. Il s&apos;invite là où
               on ne l&apos;attend pas. <strong>ArtGoesOn</strong> réinvente la
@@ -245,18 +264,30 @@ export default function Home() {
       </motion.section>
       <motion.section className="w-screen min-h-screen overflow-hidden px-5 flex justify-end items-center">
         <div className="w-full lg:w-2/3 text-left">
-          <Fade direction="up" fraction={0.3} triggerOnce={true}>
+          <Fade
+            direction="up"
+            fraction={0.3}
+            triggerOnce={isMobile ? true : false}
+          >
             <h2 className="">Pourquoi choisir ArtGoesOn ?</h2>
           </Fade>
           <ul className="space-y-4">
-            <Fade direction="up" fraction={0.3} triggerOnce={true}>
+            <Fade
+              direction="up"
+              fraction={0.3}
+              triggerOnce={isMobile ? true : false}
+            >
               <li>
                 <span className="font-bold">Un concept novateur :</span> Offrez
                 à vos clients et collaborateurs une immersion artistique hors du
                 commun.
               </li>
             </Fade>
-            <Fade direction="up" fraction={0.3} triggerOnce={true}>
+            <Fade
+              direction="up"
+              fraction={0.3}
+              triggerOnce={isMobile ? true : false}
+            >
               <li>
                 <span className="font-bold">
                   Des œuvres sélectionnées avec soin :
@@ -265,7 +296,11 @@ export default function Home() {
                 l&apos;âme de votre lieu.
               </li>
             </Fade>
-            <Fade direction="up" fraction={0.3} triggerOnce={true}>
+            <Fade
+              direction="up"
+              fraction={0.3}
+              triggerOnce={isMobile ? true : false}
+            >
               <li>
                 <span className="font-bold">
                   Une prise en charge complète :
@@ -274,7 +309,11 @@ export default function Home() {
                 installation, et communication.
               </li>
             </Fade>
-            <Fade direction="up" fraction={0.3} triggerOnce={true}>
+            <Fade
+              direction="up"
+              fraction={0.3}
+              triggerOnce={isMobile ? true : false}
+            >
               <li>
                 <span className="font-bold">
                   Un levier d&apos;image et d&apos;attractivité :
@@ -283,7 +322,11 @@ export default function Home() {
                 artistique impactante.
               </li>
             </Fade>
-            <Fade direction="up" fraction={0.3} triggerOnce={true}>
+            <Fade
+              direction="up"
+              fraction={0.3}
+              triggerOnce={isMobile ? true : false}
+            >
               <li>
                 <span className="font-bold">
                   Une opportunité d&apos;achat exclusive :
@@ -302,7 +345,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: isInView ? 0.1 : 0 }}
             transition={{ duration: 2 }}
-            className="text-[18vw] lg:text-[15vw] -z-10 font-bold h-full absolute top-[180px] lg:top-1/4 right-[20px] lg:left-[40px]"
+            className="text-[18vw] lg:text-[15vw] font-bold h-full absolute top-[180px] lg:top-1/4 right-[20px] lg:left-[40px]"
           >
             Vous êtes :
           </motion.h2>
@@ -314,7 +357,7 @@ export default function Home() {
                 key={index}
                 cascade
                 duration={1000}
-                triggerOnce={true}
+                triggerOnce={isMobile ? true : false}
               >
                 <motion.li
                   onMouseEnter={() => setHovered(index)}
@@ -335,9 +378,11 @@ export default function Home() {
             direction="up"
             fraction={0.3}
             className="flex justify-end"
-            triggerOnce={true}
+            triggerOnce={isMobile ? true : false}
           >
-            <ButtonDefault action={() => {}}>Inscrivez-vous</ButtonDefault>
+            <ButtonDefault action={scrollToBottom}>
+              Inscrivez-vous
+            </ButtonDefault>
           </Fade>
         </div>
       </motion.section>
@@ -352,7 +397,7 @@ export default function Home() {
           >
             <motion.div className="w-full text-left relative pt-28 lg:pt-0 h-full flex flex-col lg:flex-row justify-start lg:justify-end items-center">
               <motion.button
-                className="absolute top-4 right-4 lg:top-0 lg:right-0"
+                className="absolute top-4 right-4 lg:top-[60px] lg:right-0"
                 onClick={handleModalClose}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

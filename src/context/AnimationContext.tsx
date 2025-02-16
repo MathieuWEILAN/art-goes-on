@@ -14,6 +14,8 @@ type AnimationContextType = {
   setIsModalOpen: (value: boolean) => void;
   valueModal: ValueModal;
   setValueModal: (value: ValueModal) => void;
+  isAtBottom: boolean;
+  isMobile: boolean;
 };
 
 const AnimationContext = createContext<AnimationContextType | undefined>(
@@ -25,6 +27,33 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
   const [animationCompleteLogo, setAnimationCompleteLogo] = useState(false);
   const [valueModal, setValueModal] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  // ... existing code ...
+
+  // Ajouter cette fonction pour détecter le scroll
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+
+      // On considère qu'on est en bas quand il reste 50px ou moins à scroller
+      const isBottom = documentHeight - (scrollTop + windowHeight) <= 50;
+      setIsAtBottom(isBottom);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <AnimationContext.Provider
       value={{
@@ -36,6 +65,8 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         setIsModalOpen,
         valueModal,
         setValueModal,
+        isAtBottom,
+        isMobile,
       }}
     >
       {children}

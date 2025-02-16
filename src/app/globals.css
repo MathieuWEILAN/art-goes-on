@@ -48,6 +48,9 @@ body {
   text-align: center;
 }
 
+section {
+  background-color: #fff;
+}
 h2 {
   @apply font-satoshi font-bold text-2xl lg:text-4xl mb-4;
 }

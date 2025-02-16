@@ -12,8 +12,14 @@ const Header = () => {
     setAnimationCompleteLogo,
     animationComplete,
     isModalOpen,
+    isAtBottom,
+    isMobile,
   } = useAnimation();
 
+  const height = isMobile ? "60px" : "80px";
+  const width = isMobile ? "60px" : "80px";
+  const left = isMobile ? "10px" : "15px";
+  const top = isMobile ? "5px" : "10px";
   const [hasScrolledPastScreen, setHasScrolledPastScreen] =
     React.useState(false);
 
@@ -44,14 +50,10 @@ const Header = () => {
   return (
     <header
       className={`${
-        animationCompleteLogo
-          ? "fixed top-0 left-0 w-full h-24"
-          : "relative w-screen h-screen"
-      } flex justify-end items-center z-[100] gap-4 transition-colors duration-300 ${
-        isModalOpen ? "!w-0 !px-0" : "px-5"
-      } ${
+        animationCompleteLogo ? "h-auto lg:h-20" : "h-screen bg-white"
+      } fixed w-screen top-0 left-0 flex justify-end items-center z-[100] gap-4 px-5 transition-colors duration-300 py-2.5 backdrop-blur-sm ${
         hasScrolledPastScreen ? "md:bg-transparent bg-white" : "bg-transparent"
-      }`}
+      } ${isAtBottom && isMobile ? "!bg-transparent" : ""}`}
     >
       <motion.div
         className={`${
@@ -64,10 +66,10 @@ const Header = () => {
           transform: "translate(-50%, -50%)",
         }}
         animate={{
-          height: animationComplete ? "80px" : "100%",
-          width: animationComplete ? "80px" : "100%",
-          top: animationComplete ? "10px" : "50%",
-          left: animationComplete ? "10px" : "50%",
+          height: animationComplete ? height : "100%",
+          width: animationComplete ? width : "100%",
+          top: animationComplete ? top : "50%",
+          left: animationComplete ? left : "50%",
           transform: animationComplete ? "none" : "translate(-50%, -50%)",
         }}
         transition={{ duration: 0.8, ease: "linear" }}
@@ -82,10 +84,32 @@ const Header = () => {
       <div
         className={`${
           animationCompleteLogo ? "flex gap-4" : "hidden"
-        } flex justify-center items-center ${isModalOpen ? "hidden" : ""}`}
+        } flex justify-center items-center`}
       >
-        <ButtonDefault action={() => {}}>Artistes</ButtonDefault>
-        <ButtonDefault action={() => {}}>Se connecter</ButtonDefault>
+        <ButtonDefault
+          action={() => {}}
+          color={isAtBottom || isModalOpen ? "white" : "black"}
+        >
+          <span
+            className={`${
+              isAtBottom || isModalOpen ? "text-white" : "text-black"
+            } text-xs tracking-widest`}
+          >
+            Artistes
+          </span>
+        </ButtonDefault>
+        <ButtonDefault
+          action={() => {}}
+          color={isAtBottom || isModalOpen ? "white" : "black"}
+        >
+          <span
+            className={`${
+              isAtBottom || isModalOpen ? "text-white" : "text-black"
+            } text-xs tracking-widest`}
+          >
+            Se connecter
+          </span>
+        </ButtonDefault>
       </div>
     </header>
   );
