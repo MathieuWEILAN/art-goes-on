@@ -21,7 +21,7 @@ const InputFooter = ({
 }: InputFooterProps) => {
   return (
     <div
-      className={`w-full max-sm:pb-5 pt-5 overflow-hidden relative ${className}`}
+      className={`w-full max-sm:pb-2 pt-5 overflow-hidden relative ${className}`}
     >
       <div className="w-full relative">
         <input

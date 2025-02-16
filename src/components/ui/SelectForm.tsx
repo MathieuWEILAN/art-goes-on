@@ -16,15 +16,6 @@ const SelectComponent = ({
   handleInputChange,
   error,
 }: SelectComponentProps) => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   const options = [
     {
       value: "Hotel & Palace",
@@ -140,7 +131,7 @@ const SelectComponent = ({
   };
 
   return (
-    <div className="max-sm:w-full sm:flex-1">
+    <div className="max-sm:w-full sm:flex-1 max-sm:pb-2 pt-5">
       <Select
         options={options}
         styles={colourStyles}

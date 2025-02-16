@@ -2,6 +2,7 @@
 import FormFooter from "../footer/FormFooter";
 import { useAnimation } from "../../../context/AnimationContext";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 const Footer = () => {
   const { animationCompleteLogo } = useAnimation();
   const [isVisible, setIsVisible] = useState(false);
@@ -14,7 +15,7 @@ const Footer = () => {
   }, [animationCompleteLogo]);
   return (
     <div
-      className={`bg-black text-white min-h-screen w-screen relative ${
+      className={`bg-black text-white min-h-screen h-auto w-screen relative ${
         isVisible ? "block" : "hidden"
       }`}
     >
@@ -23,9 +24,28 @@ const Footer = () => {
           Inscrivez-vous
         </h2>
         <FormFooter />
-        <p className="text-center text-sm absolute bottom-0">
-          &copy; {new Date().getFullYear()} Art Goes On. Tous droits réservés.
-        </p>
+        <div className="w-full flex flex-col lg:flex-row justify-between items-center text-sm absolute bottom-0 px-5">
+          <div className="flex gap-4">
+            <Link
+              href="/mentions-legales"
+              className="font-satoshi text-sm mr-2 mb-4"
+            >
+              Mentions légales
+            </Link>
+            <Link
+              href="/politique-de-confidentialite"
+              className="font-satoshi text-sm mr-2 mb-4"
+            >
+              Politique de confidentialité
+            </Link>
+            <Link href="/contact" className="font-satoshi text-sm mr-2 mb-4">
+              Contact
+            </Link>
+          </div>
+          <p className="text-sm">
+            &copy; {new Date().getFullYear()} ArtGoesOn. Tous droits réservés.
+          </p>
+        </div>
       </div>
     </div>
   );
