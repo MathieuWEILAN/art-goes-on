@@ -3,12 +3,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Logo from "../icons/Logo";
-import Button from "../ui/ButtonSlide";
+import ButtonSlide from "../ui/ButtonSlide";
+import ButtonDefault from "../ui/ButtonDefault";
 import { useAnimation } from "../../context/AnimationContext";
 
 const Header = () => {
-  const { animationCompleteLogo, setAnimationCompleteLogo, animationComplete } =
-    useAnimation();
+  const {
+    animationCompleteLogo,
+    setAnimationCompleteLogo,
+    animationComplete,
+    isModalOpen,
+  } = useAnimation();
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -34,13 +39,16 @@ const Header = () => {
       document.body.style.overflow = "unset";
     };
   }, [animationCompleteLogo]);
+
   return (
     <header
       className={`${
         animationCompleteLogo
           ? "fixed top-0 left-0 w-full h-20"
           : "relative w-screen h-screen"
-      } flex justify-end items-center z-20 px-5 gap-4 transition-colors duration-300`}
+      } flex justify-end items-center z-[100] px-5 gap-4 transition-colors duration-300 ${
+        isModalOpen ? "w-[200px]" : ""
+      }`}
     >
       <motion.div
         className={`${
@@ -71,10 +79,10 @@ const Header = () => {
       <div
         className={`${
           animationCompleteLogo ? "flex gap-4" : "hidden"
-        } flex justify-center items-center`}
+        } flex justify-center items-center ${isModalOpen ? "hidden" : ""}`}
       >
-        <Button action={() => {}}>Artistes</Button>
-        <Button action={() => {}}>Se connecter</Button>
+        <ButtonDefault action={() => {}}>Artistes</ButtonDefault>
+        <ButtonDefault action={() => {}}>Se connecter</ButtonDefault>
       </div>
     </header>
   );

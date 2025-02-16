@@ -19,7 +19,7 @@ const ButtonDefault = ({
         className="relative z-10 inline-block text-xs tracking-widest"
         initial={{ x: 0, y: 0 }}
         variants={{
-          hover: { x: "60%", y: "70%" },
+          hover: { x: "20%", y: "80%" },
         }}
         transition={{ duration: 0.3 }}
       >
@@ -29,7 +29,7 @@ const ButtonDefault = ({
         className="absolute bottom-0 left-0 bg-black"
         initial={{ width: "100%", height: "2px" }}
         variants={{
-          hover: { width: "50%" },
+          hover: { width: "20%" },
         }}
         transition={{ duration: 0.2 }}
       />

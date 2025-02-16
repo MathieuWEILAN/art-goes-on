@@ -2,13 +2,19 @@
 
 import React, { useState } from "react";
 import Logo from "../components/icons/Logo";
-import { motion, useTransform, useScroll, useInView } from "framer-motion";
+import {
+  motion,
+  useTransform,
+  useScroll,
+  useInView,
+  AnimatePresence,
+} from "framer-motion";
 import Cards from "../components/ui/Cards";
 import { useAnimation } from "../context/AnimationContext";
 import Modal from "../components/layout/Modal";
 import Marquee from "react-fast-marquee";
 const videoUrl = "/videos/joconde.mp4"; // La vidéo doit être dans le dossier public
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Image1 from "../../public/images/img11.jpg";
 import Image2 from "../../public/images/img22.jpg";
 import Image3 from "../../public/images/img33.jpg";
@@ -17,35 +23,108 @@ import Image5 from "../../public/images/vertou.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Pagination } from "swiper/modules";
-
+import { Fade } from "react-awesome-reveal";
+import ButtonDefault from "../components/ui/ButtonDefault";
+import Close from "../components/icons/Close";
 const institutions = [
   {
     name: "Hotel & Palace",
-    description: "Un hôtel ou un palais",
+    description: "Luxe & Expérience client",
+    text: "Transformez votre hôtel en un espace artistique exclusif où l'art dialogue avec l'architecture et le design intérieur. Nos expositions permettent de sublimer chaque espace – hall, suites, restaurants – et d'offrir à vos clients une immersion artistique inédite. En proposant une sélection d'œuvres contemporaines adaptées à votre univers, vous renforcez votre attractivité et créez une signature visuelle unique. Nous gérons l'ensemble du processus : sélection des œuvres, transport, installation et communication.",
+    image: Image1,
   },
   {
     name: "Secteur public",
-    description: "Un musée, un monument, une mairie",
+    description: "Patrimoine & Culture",
+    text: "L'art doit être accessible à tous et sortir des cadres traditionnels. En intégrant des expositions dans les musées, monuments ou mairies, vous offrez à votre public une nouvelle façon de découvrir l'art. Nos installations sont pensées pour respecter l'âme du lieu tout en apportant une touche contemporaine. Que ce soit pour un événement temporaire ou une mise en valeur permanente, nous vous accompagnons dans le choix des œuvres et assurons leur installation clé en main.",
+    image: Image2,
   },
   {
     name: "Événementiel / Corporate / Immobilier d'exception",
-    description: "Un événement, une entreprise, un immeuble",
+    description: "Prestige & Expérience immersive",
+    text: "L'art donne une dimension unique à un événement et renforce l'image d'une marque ou d'un espace. Que ce soit pour une conférence, un lancement de produit, un showroom immobilier ou un siège social, nous créons des expositions sur-mesure qui s'intègrent à votre univers. En mettant en avant des artistes talentueux, vous offrez à votre audience une expérience sensorielle et mémorable. Notre offre inclut la sélection des œuvres, la logistique, et l'installation, pour un rendu spectaculaire et sans contrainte.",
+    image: Image3,
   },
   {
     name: "Particulier",
-    description: "Un particulier",
+    description: "Collection & Intérieur d'exception",
+    text: "Vous souhaitez transformer votre intérieur en une véritable galerie privée ? Nous vous accompagnons dans la sélection d'œuvres uniques qui correspondent à votre style et à l'ambiance de votre espace. Que ce soit pour un salon, une villa ou un appartement de prestige, nous vous proposons des installations sur-mesure pour sublimer votre cadre de vie. Nos services incluent le transport, l'accrochage et le suivi de vos acquisitions artistiques.",
+    image: Image4,
   },
 ];
 
-const images = [Image1, Image2, Image3, Image4, Image5];
+const imagesData = [
+  {
+    img: Image1,
+    title: "Exposition Bassompierre",
+    location: "Paris",
+    date: "Janvier 2022",
+  },
+  {
+    img: Image2,
+    title: "Exposition Lumière et Ombres",
+    location: "Lyon",
+    date: "Décembre 2024",
+  },
+  {
+    img: Image3,
+    title: "Exposition Art Contemporain",
+    location: "Marseille",
+    date: "Septembre 2023",
+  },
+  {
+    img: Image4,
+    title: "Exposition Couleurs et Formes",
+    location: "Bordeaux",
+    date: "Mai 2024",
+  },
+  {
+    img: Image5,
+    title: "Exposition Perspectives Urbaines",
+    location: "Nice",
+    date: "Avril 2024",
+  },
+];
 export default function Home() {
-  const { animationCompleteLogo } = useAnimation();
+  const { animationCompleteLogo, isModalOpen, setIsModalOpen } = useAnimation();
   const { scrollY } = useScroll();
   const [hovered, setHovered] = useState<number | null>(null);
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { amount: 0.5 }); // Trigger at 50% visibility
+  const [showCustomCursor, setShowCustomCursor] = useState<
+    | { img: StaticImageData; title: string; location: string; date: string }
+    | false
+  >(false);
+  const [modal, setModal] = useState<
+    | {
+        name: string;
+        description: string;
+        text: string;
+        image: StaticImageData; // Changé pour correspondre à la structure de institution
+      }
+    | false
+  >(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isClosing, setIsClosing] = useState(false);
 
   const videoY = useTransform(scrollY, [0, 1000], [0, 1000]);
   const opacityMarquee = useTransform(scrollY, [0, 1000], [1, 0]);
 
+  const updateMousePosition = (e: React.MouseEvent) => {
+    setMousePosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleModalToggle = (institution: any) => {
+    setModal(institution);
+    setIsModalOpen(true);
+  };
+  const handleModalClose = async () => {
+    setIsClosing(true);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    setIsClosing(false);
+    setModal(false);
+    setIsModalOpen(false);
+  };
   return (
     <div
       className={`overflow-hidden flex flex-col justify-center items-center relative`}
@@ -54,7 +133,7 @@ export default function Home() {
         className="relative w-screen h-screen overflow-hidden"
         initial={{ width: animationCompleteLogo ? 0 : "100vw" }}
         animate={{ width: animationCompleteLogo ? "100vw" : 0 }}
-        transition={{ duration: 2, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
       >
         <motion.video
           style={{ y: videoY }}
@@ -68,14 +147,14 @@ export default function Home() {
           className="h-full w-full"
           initial={{ y: "100%" }}
           animate={{ y: animationCompleteLogo ? "0%" : "100%" }}
-          transition={{ duration: 2, delay: 2, ease: "easeOut" }}
+          transition={{ duration: 2, delay: 1, ease: "easeOut" }}
         >
           <div className="bg-gradient-to-t from-white via-white/40 to-transparent h-[50vh] absolute bottom-0 left-0 w-full z-10">
             <Marquee
               className="flex items-end overflow-hidden h-full"
               speed={200}
               autoFill
-              delay={11}
+              delay={9}
             >
               <motion.div
                 style={{ opacity: opacityMarquee }}
@@ -88,18 +167,45 @@ export default function Home() {
         </motion.div>
       </motion.section>
       <motion.section className="w-screen h-auto overflow-hidden px-5 flex justify-end items-center">
-        <div className="w-2/3 text-left h-screen flex flex-col justify-center items-start">
-          <h2>Transformez votre espace en galerie d'exception</h2>
-          <p>
-            L'art ne se limite pas aux galeries. Il s'invite là où on ne
-            l'attend pas. <strong>ArtGoesOn</strong> réinvente la manière dont
-            l'art dialogue avec les espaces en créant un pont entre les artistes
-            et les lieux d'exception pour sublimer leurs environnements à
-            travers des expositions uniques.
-          </p>
+        <div className="w-2/3 text-left pt-80  pb-40 flex flex-col justify-center items-start">
+          <Fade direction="up" fraction={0.8}>
+            <h2>Transformez votre espace en galerie d&apos;exception</h2>
+          </Fade>
+          <Fade direction="up" fraction={0.8}>
+            <p>
+              L&apos;art ne se limite pas aux galeries. Il s&apos;invite là où
+              on ne l&apos;attend pas. <strong>ArtGoesOn</strong> réinvente la
+              manière dont l&apos;art dialogue avec les espaces en créant un
+              pont entre les artistes et les lieux d&apos;exception pour
+              sublimer leurs environnements à travers des expositions uniques.
+            </p>
+          </Fade>
         </div>
       </motion.section>
-      <motion.section className="w-screen flex overflow-auto bg-white gap-8 p-8 h-screen">
+      <motion.section className="w-screen flex overflow-auto bg-white gap-8 p-8 h-screen relative">
+        {showCustomCursor && (
+          <motion.div
+            className="shadow-xl fixed w-[200px] h-[200px] p-4 rounded-full bg-white flex items-center justify-center text-black pointer-events-none z-50"
+            style={{
+              left: mousePosition.x - 50,
+              top: mousePosition.y - 50,
+            }}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            {showCustomCursor && (
+              <div className="flex flex-col items-center justify-center">
+                <span className="font-bold text-base">
+                  {showCustomCursor.title}
+                </span>
+                <span className="text-sm">{showCustomCursor.location}</span>
+                <time className="text-sm italic">{showCustomCursor.date}</time>
+              </div>
+            )}
+          </motion.div>
+        )}
+
         <Swiper
           slidesPerView={1.3} // Affiche 1.3 slides visibles
           spaceBetween={20} // Espacement entre les slides
@@ -107,11 +213,16 @@ export default function Home() {
           modules={[Pagination]} // Active les modules nécessaires
           className="mySwiper"
         >
-          {images.map((image, index) => (
+          {imagesData.map((image, index) => (
             <SwiperSlide key={index}>
-              <div className="relative overflow-hidden h-full">
+              <div
+                className="relative overflow-hidden h-full cursor-none"
+                onMouseEnter={() => setShowCustomCursor(image)}
+                onMouseLeave={() => setShowCustomCursor(false)}
+                onMouseMove={updateMousePosition}
+              >
                 <Image
-                  src={image}
+                  src={image.img}
                   alt="Image"
                   className="h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"
                 />
@@ -122,65 +233,162 @@ export default function Home() {
       </motion.section>
       <motion.section className="w-screen min-h-screen overflow-hidden px-5 flex justify-end items-center">
         <div className="w-2/3 text-left">
-          <h2 className="">Pourquoi choisir ArtGoesOn ?</h2>
+          <Fade direction="up" fraction={0.8}>
+            <h2 className="">Pourquoi choisir ArtGoesOn ?</h2>
+          </Fade>
           <ul className="space-y-4">
-            <li>
-              <span className="font-bold">Un concept novateur :</span> Offrez à
-              vos clients et collaborateurs une immersion artistique hors du
-              commun.
-            </li>
-            <li>
-              <span className="font-bold">
-                Des œuvres sélectionnées avec soin :
-              </span>{" "}
-              Des pièces uniques d'artistes contemporains, adaptées à l'âme de
-              votre lieu.
-            </li>
-            <li>
-              <span className="font-bold">Une prise en charge complète :</span>{" "}
-              Nous nous occupons de tout – logistique, transport, installation,
-              et communication.
-            </li>
-            <li>
-              <span className="font-bold">
-                Un levier d'image et d'attractivité :
-              </span>{" "}
-              Différenciez-vous et marquez les esprits avec une scénographie
-              artistique impactante.
-            </li>
-            <li>
-              <span className="font-bold">
-                Une opportunité d'achat exclusive :
-              </span>{" "}
-              Offrez à vos visiteurs la possibilité d'acquérir des œuvres
-              directement dans un cadre inattendu.
-            </li>
+            <Fade direction="up" fraction={0.8}>
+              <li>
+                <span className="font-bold">Un concept novateur :</span> Offrez
+                à vos clients et collaborateurs une immersion artistique hors du
+                commun.
+              </li>
+            </Fade>
+            <Fade direction="up" fraction={0.8}>
+              <li>
+                <span className="font-bold">
+                  Des œuvres sélectionnées avec soin :
+                </span>{" "}
+                Des pièces uniques d&apos;artistes contemporains, adaptées à
+                l&apos;âme de votre lieu.
+              </li>
+            </Fade>
+            <Fade direction="up" fraction={0.8}>
+              <li>
+                <span className="font-bold">
+                  Une prise en charge complète :
+                </span>{" "}
+                Nous nous occupons de tout – logistique, transport,
+                installation, et communication.
+              </li>
+            </Fade>
+            <Fade direction="up" fraction={0.8}>
+              <li>
+                <span className="font-bold">
+                  Un levier d&apos;image et d&apos;attractivité :
+                </span>{" "}
+                Différenciez-vous et marquez les esprits avec une scénographie
+                artistique impactante.
+              </li>
+            </Fade>
+            <Fade direction="up" fraction={0.8}>
+              <li>
+                <span className="font-bold">
+                  Une opportunité d&apos;achat exclusive :
+                </span>{" "}
+                Offrez à vos visiteurs la possibilité d&apos;acquérir des œuvres
+                directement dans un cadre inattendu.
+              </li>
+            </Fade>
           </ul>
         </div>
       </motion.section>
       <motion.section className="w-screen h-screen overflow-hidden pl-5 pr-10 flex justify-end items-center relative">
         <div className="w-2/3 text-left">
-          <h2 className="text-[15vw] -z-10 font-bold opacity-10 h-full absolute top-[200px] left-[40px]">
+          <motion.h2
+            ref={ref}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isInView ? 0.1 : 0 }}
+            transition={{ duration: 2 }}
+            className="text-[15vw] -z-10 font-bold h-full absolute top-1/4 left-[40px]"
+          >
             Vous êtes :
-          </h2>
-          <ul className="w-auto">
+          </motion.h2>
+          <ul className="w-auto mb-10">
             {institutions.map((institution, index) => (
-              <li
+              <Fade
+                direction="up"
+                fraction={1}
                 key={index}
-                onMouseEnter={() => setHovered(index)}
-                onMouseLeave={() => setHovered(null)}
-                className={`text-3xl cursor-pointer font-bold border-b border-black py-4 text-black transition-all duration-300 ${
-                  hovered === index || hovered === null
-                    ? "opacity-100"
-                    : "opacity-20"
-                }`}
+                cascade
+                duration={1000}
               >
-                {institution.name}
-              </li>
+                <motion.li
+                  onMouseEnter={() => setHovered(index)}
+                  onMouseLeave={() => setHovered(null)}
+                  onClick={() => handleModalToggle(institution)}
+                  className={`overflow-hidden text-3xl cursor-pointer font-bold border-b border-black py-4 text-black transition-all duration-300 ${
+                    hovered === index || hovered === null
+                      ? "opacity-100"
+                      : "opacity-20"
+                  }`}
+                >
+                  <motion.span>{institution.name}</motion.span>
+                </motion.li>
+              </Fade>
             ))}
           </ul>
+          <Fade direction="up" fraction={0.8} className="flex justify-end">
+            <ButtonDefault action={() => {}}>Inscrivez-vous</ButtonDefault>
+          </Fade>
         </div>
       </motion.section>
+      <AnimatePresence>
+        {modal && (
+          <motion.section
+            className="w-[99.5vw] rounded-bl-[100px] h-screen overflow-hidden flex text-white justify-end items-center fixed top-0 right-0 bg-black z-50"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.4, delay: isClosing ? 0.8 : 0 }}
+          >
+            <motion.div className="w-full text-left relative h-full flex justify-end items-center">
+              <motion.button
+                className="absolute top-10 right-10"
+                onClick={handleModalClose}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: isModalOpen ? 0.8 : isClosing ? 0.2 : 0,
+                }}
+              >
+                <Close isClosing={isClosing} isModalOpen={isModalOpen} />
+              </motion.button>
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.4, delay: isClosing ? 0 : 1 }}
+                className="w-1/3 ml-10"
+              >
+                <Image
+                  src={modal.image}
+                  alt={modal.name}
+                  className="w-full h-auto object-cover grayscale rounded-br-[100px]"
+                />
+              </motion.div>
+              <div className="flex flex-col gap-4 p-10 h-full justify-center w-2/3">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.4, delay: isClosing ? 0 : 0.4 }}
+                >
+                  {modal.name}
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.4, delay: isClosing ? 0.2 : 0.6 }}
+                >
+                  {modal.description}
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.4, delay: isClosing ? 0.4 : 0.8 }}
+                >
+                  {modal.text}
+                </motion.p>
+              </div>
+            </motion.div>
+          </motion.section>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

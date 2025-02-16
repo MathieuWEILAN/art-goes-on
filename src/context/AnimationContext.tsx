@@ -11,6 +11,8 @@ type AnimationContextType = {
   setIsModalOpen: (value: boolean) => void;
   valueModal: any;
   setValueModal: (value: any) => void;
+  isModalOpen: boolean;
+  setIsModalOpen: (value: boolean) => void;
 };
 
 const AnimationContext = createContext<AnimationContextType | undefined>(
@@ -20,8 +22,8 @@ const AnimationContext = createContext<AnimationContextType | undefined>(
 export function AnimationProvider({ children }: { children: React.ReactNode }) {
   const [animationComplete, setAnimationComplete] = useState(false);
   const [animationCompleteLogo, setAnimationCompleteLogo] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [valueModal, setValueModal] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <AnimationContext.Provider

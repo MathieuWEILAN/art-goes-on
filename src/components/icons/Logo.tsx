@@ -2,10 +2,21 @@
 
 import { motion } from "framer-motion";
 import { useAnimation } from "../../context/AnimationContext";
+import React, { useState } from "react";
 
-const Logo = () => {
-  const { setAnimationComplete, animationCompleteLogo } = useAnimation();
-  const color = "#000000";
+const Logo = ({}) => {
+  const { setAnimationComplete, animationCompleteLogo, isModalOpen } =
+    useAnimation();
+  const [color, setColor] = useState("#000");
+  React.useEffect(() => {
+    if (isModalOpen) {
+      setTimeout(() => {
+        setColor("#fff");
+      }, 300);
+    } else {
+      setColor("#000");
+    }
+  }, [isModalOpen]);
   const draw = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: (i: number) => ({
@@ -71,7 +82,7 @@ const Logo = () => {
       height="500"
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
-      className={"w-full h-full"}
+      className={"w-full h-full z-[100]"}
       initial="hidden"
       animate="visible"
     >
