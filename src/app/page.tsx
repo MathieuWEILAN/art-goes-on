@@ -146,6 +146,8 @@ export default function Home() {
           autoPlay
           muted
           loop
+          playsInline
+          preload="auto"
           className="absolute top-0 left-0 w-full h-[100%] object-cover"
         />{" "}
         <motion.div
