@@ -77,11 +77,11 @@ const Logo = ({}) => {
       xmlns="http://www.w3.org/2000/svg"
       width="500"
       zoomAndPan="magnify"
-      viewBox="75 70 225 225" // Ajusté depuis "0 0 375 374.999991"
+      viewBox="50 50 275 275" // Ajusté pour plus d'espace autour
       height="500"
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
-      className={"w-full h-full z-[100] p-4 lg:p-0"}
+      className={"w-full h-full z-[100]"}
       initial="hidden"
       animate="visible"
     >

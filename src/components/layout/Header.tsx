@@ -50,8 +50,8 @@ const Header = () => {
         animate={{
           height: animationComplete ? "80px" : "100%",
           width: animationComplete ? "80px" : "100%",
-          top: animationComplete ? "16px" : "50%",
-          left: animationComplete ? "16px" : "50%",
+          top: animationComplete ? "10px" : "50%",
+          left: animationComplete ? "10px" : "50%",
           transform: animationComplete ? "none" : "translate(-50%, -50%)",
         }}
         transition={{ duration: 0.8, ease: "linear" }}
