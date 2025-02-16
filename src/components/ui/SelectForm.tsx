@@ -1,5 +1,4 @@
 import Select from "react-select";
-import { useEffect, useState } from "react";
 import { StylesConfig, GroupBase } from "react-select";
 
 interface SelectComponentProps {
