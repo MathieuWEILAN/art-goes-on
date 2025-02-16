@@ -154,7 +154,7 @@ export default function Home() {
           animate={{ y: animationCompleteLogo ? "0%" : "100%" }}
           transition={{ duration: 2, ease: "easeOut" }}
         >
-          <div className="bg-gradient-to-t from-white via-white/40 to-transparent h-[50vh] absolute bottom-0 left-0 w-full z-10 pb-20 lg:pb-0">
+          <div className="bg-gradient-to-t from-white via-white/40 to-transparent h-[50vh] absolute bottom-0 left-0 w-full z-10 pb-28 lg:pb-0">
             <Marquee
               className="flex items-end overflow-hidden h-full"
               speed={200}
@@ -172,11 +172,11 @@ export default function Home() {
         </motion.div>
       </motion.section>
       <motion.section className="w-screen h-auto overflow-hidden px-5 flex justify-end items-center">
-        <div className="w-full lg:w-2/3 text-left pt-80  pb-40 flex flex-col justify-center items-start">
-          <Fade direction="up" fraction={0.5}>
+        <div className="w-full lg:w-2/3 text-left pt-40 lg:pt-80 pb-40 flex flex-col justify-center items-start">
+          <Fade direction="up" fraction={0.3} triggerOnce={true}>
             <h2>Transformez votre espace en galerie d&apos;exception</h2>
           </Fade>
-          <Fade direction="up" fraction={0.5}>
+          <Fade direction="up" fraction={0.3} triggerOnce={true}>
             <p>
               L&apos;art ne se limite pas aux galeries. Il s&apos;invite là où
               on ne l&apos;attend pas. <strong>ArtGoesOn</strong> réinvente la
@@ -243,18 +243,18 @@ export default function Home() {
       </motion.section>
       <motion.section className="w-screen min-h-screen overflow-hidden px-5 flex justify-end items-center">
         <div className="w-full lg:w-2/3 text-left">
-          <Fade direction="up" fraction={0.8}>
+          <Fade direction="up" fraction={0.3} triggerOnce={true}>
             <h2 className="">Pourquoi choisir ArtGoesOn ?</h2>
           </Fade>
           <ul className="space-y-4">
-            <Fade direction="up" fraction={0.8}>
+            <Fade direction="up" fraction={0.3} triggerOnce={true}>
               <li>
                 <span className="font-bold">Un concept novateur :</span> Offrez
                 à vos clients et collaborateurs une immersion artistique hors du
                 commun.
               </li>
             </Fade>
-            <Fade direction="up" fraction={0.8}>
+            <Fade direction="up" fraction={0.3} triggerOnce={true}>
               <li>
                 <span className="font-bold">
                   Des œuvres sélectionnées avec soin :
@@ -263,7 +263,7 @@ export default function Home() {
                 l&apos;âme de votre lieu.
               </li>
             </Fade>
-            <Fade direction="up" fraction={0.8}>
+            <Fade direction="up" fraction={0.3} triggerOnce={true}>
               <li>
                 <span className="font-bold">
                   Une prise en charge complète :
@@ -272,7 +272,7 @@ export default function Home() {
                 installation, et communication.
               </li>
             </Fade>
-            <Fade direction="up" fraction={0.8}>
+            <Fade direction="up" fraction={0.3} triggerOnce={true}>
               <li>
                 <span className="font-bold">
                   Un levier d&apos;image et d&apos;attractivité :
@@ -281,7 +281,7 @@ export default function Home() {
                 artistique impactante.
               </li>
             </Fade>
-            <Fade direction="up" fraction={0.8}>
+            <Fade direction="up" fraction={0.3} triggerOnce={true}>
               <li>
                 <span className="font-bold">
                   Une opportunité d&apos;achat exclusive :
@@ -308,10 +308,11 @@ export default function Home() {
             {institutions.map((institution, index) => (
               <Fade
                 direction="up"
-                fraction={0.5}
+                fraction={0.3}
                 key={index}
                 cascade
                 duration={1000}
+                triggerOnce={true}
               >
                 <motion.li
                   onMouseEnter={() => setHovered(index)}
@@ -328,7 +329,12 @@ export default function Home() {
               </Fade>
             ))}
           </ul>
-          <Fade direction="up" fraction={0.4} className="flex justify-end">
+          <Fade
+            direction="up"
+            fraction={0.3}
+            className="flex justify-end"
+            triggerOnce={true}
+          >
             <ButtonDefault action={() => {}}>Inscrivez-vous</ButtonDefault>
           </Fade>
         </div>
@@ -336,7 +342,7 @@ export default function Home() {
       <AnimatePresence>
         {modal && (
           <motion.section
-            className="w-[99.5vw] rounded-bl-[100px] h-[99vh] overflow-hidden flex text-white justify-end items-center fixed top-0 right-0 bg-black z-50"
+            className="w-[99.5vw] lg:rounded-bl-[100px] h-[99vh] overflow-hidden flex text-white justify-end items-center fixed top-0 right-0 bg-black z-50"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
