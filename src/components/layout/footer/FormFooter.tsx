@@ -224,7 +224,7 @@ const FooterForm = () => {
         />
       </div>
       <div className="w-full flex justify-center sm:justify-end max-sm:mt-5">
-        <ButtonDefault type="submit" action={handleSubmit}>
+        <ButtonDefault type="submit" action={() => handleSubmit}>
           Envoyer
         </ButtonDefault>
       </div>
