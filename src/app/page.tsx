@@ -300,7 +300,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: isInView ? 0.1 : 0 }}
             transition={{ duration: 2 }}
-            className="text-[15vw] -z-10 font-bold h-full absolute top-[180px] lg:top-1/4 right-[20px] lg:left-[40px]"
+            className="text-[18vw] lg:text-[15vw] -z-10 font-bold h-full absolute top-[180px] lg:top-1/4 right-[20px] lg:left-[40px]"
           >
             Vous êtes :
           </motion.h2>
@@ -317,7 +317,7 @@ export default function Home() {
                   onMouseEnter={() => setHovered(index)}
                   onMouseLeave={() => setHovered(null)}
                   onClick={() => handleModalToggle(institution)}
-                  className={`overflow-hidden text-3xl cursor-pointer font-bold border-b border-black py-4 text-black transition-all duration-300 ${
+                  className={`overflow-hidden text-lg lg:text-3xl cursor-pointer font-bold border-b border-black py-4 text-black transition-all duration-300 ${
                     hovered === index || hovered === null
                       ? "opacity-100"
                       : "opacity-20"
@@ -328,7 +328,7 @@ export default function Home() {
               </Fade>
             ))}
           </ul>
-          <Fade direction="up" fraction={0.8} className="flex justify-end">
+          <Fade direction="up" fraction={0.4} className="flex justify-end">
             <ButtonDefault action={() => {}}>Inscrivez-vous</ButtonDefault>
           </Fade>
         </div>
