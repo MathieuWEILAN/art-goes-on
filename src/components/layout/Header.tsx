@@ -47,8 +47,8 @@ const Header = () => {
         animationCompleteLogo
           ? "fixed top-0 left-0 w-full h-24"
           : "relative w-screen h-screen"
-      } flex justify-end items-center z-[100] px-5 gap-4 transition-colors duration-300 ${
-        isModalOpen ? "w-0 px-0" : ""
+      } flex justify-end items-center z-[100] gap-4 transition-colors duration-300 ${
+        isModalOpen ? "!w-0 !px-0" : "px-5"
       } ${
         hasScrolledPastScreen ? "md:bg-transparent bg-white" : "bg-transparent"
       }`}
