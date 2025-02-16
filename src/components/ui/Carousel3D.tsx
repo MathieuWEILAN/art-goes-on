@@ -27,7 +27,7 @@ const images = [
 ];
 const Carousel3D = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [cellCount, setCellCount] = useState(images.length);
+  const cellCount = images.length;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState(images[0]);
   const [radius, setRadius] = useState(0);
@@ -54,7 +54,7 @@ const Carousel3D = () => {
         cellSize / (2 * Math.tan(Math.PI / Math.min(cellCount, images.length)));
       setRadius(Math.round(minRadius * 1.5));
     }
-  }, [cellCount]);
+  }, []);
 
   const rotateCarousel = () => {
     if (carouselRef.current) {

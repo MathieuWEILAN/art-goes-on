@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Logo from "../components/icons/Logo";
 import {
   motion,
   useTransform,
@@ -9,9 +8,7 @@ import {
   useInView,
   AnimatePresence,
 } from "framer-motion";
-import Cards from "../components/ui/Cards";
 import { useAnimation } from "../context/AnimationContext";
-import Modal from "../components/layout/Modal";
 import Marquee from "react-fast-marquee";
 const videoUrl = "/videos/joconde.mp4"; // La vidéo doit être dans le dossier public
 import Image, { StaticImageData } from "next/image";
@@ -26,7 +23,15 @@ import { Pagination } from "swiper/modules";
 import { Fade } from "react-awesome-reveal";
 import ButtonDefault from "../components/ui/ButtonDefault";
 import Close from "../components/icons/Close";
-const institutions = [
+
+type Institution = {
+  name: string;
+  description: string;
+  text: string;
+  image: StaticImageData;
+};
+
+const institutions: Institution[] = [
   {
     name: "Hotel & Palace",
     description: "Luxe & Expérience client",
@@ -114,7 +119,7 @@ export default function Home() {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
 
-  const handleModalToggle = (institution: any) => {
+  const handleModalToggle = (institution: Institution) => {
     setModal(institution);
     setIsModalOpen(true);
   };

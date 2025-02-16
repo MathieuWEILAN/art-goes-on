@@ -2,6 +2,9 @@
 
 import React, { createContext, useContext, useState } from "react";
 
+interface ValueModal {
+  [key: string]: string | number | boolean | object;
+}
 type AnimationContextType = {
   animationComplete: boolean;
   setAnimationComplete: (value: boolean) => void;
@@ -9,10 +12,8 @@ type AnimationContextType = {
   setAnimationCompleteLogo: (value: boolean) => void;
   isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
-  valueModal: any;
-  setValueModal: (value: any) => void;
-  isModalOpen: boolean;
-  setIsModalOpen: (value: boolean) => void;
+  valueModal: ValueModal;
+  setValueModal: (value: ValueModal) => void;
 };
 
 const AnimationContext = createContext<AnimationContextType | undefined>(
@@ -24,7 +25,6 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
   const [animationCompleteLogo, setAnimationCompleteLogo] = useState(false);
   const [valueModal, setValueModal] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <AnimationContext.Provider
       value={{

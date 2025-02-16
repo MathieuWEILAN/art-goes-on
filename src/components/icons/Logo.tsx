@@ -5,8 +5,7 @@ import { useAnimation } from "../../context/AnimationContext";
 import React, { useState } from "react";
 
 const Logo = ({}) => {
-  const { setAnimationComplete, animationCompleteLogo, isModalOpen } =
-    useAnimation();
+  const { setAnimationComplete, isModalOpen } = useAnimation();
   const [color, setColor] = useState("#000");
   React.useEffect(() => {
     if (isModalOpen) {

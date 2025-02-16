@@ -1,14 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useAnimation } from "../../context/AnimationContext";
 import { motion } from "framer-motion";
 import Yako from "../../../public/yayo.webp";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 const Modal = () => {
-  const { isModalOpen, setIsModalOpen, valueModal, setValueModal } =
-    useAnimation();
+  const { setIsModalOpen } = useAnimation();
   return (
     <motion.div
       initial={{ y: "100%" }}

@@ -3,7 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Logo from "../icons/Logo";
-import ButtonSlide from "../ui/ButtonSlide";
 import ButtonDefault from "../ui/ButtonDefault";
 import { useAnimation } from "../../context/AnimationContext";
 
@@ -14,18 +13,6 @@ const Header = () => {
     animationComplete,
     isModalOpen,
   } = useAnimation();
-  const [isScrolled, setIsScrolled] = React.useState(false);
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const viewportHeight = window.innerHeight;
-      setIsScrolled(scrollPosition > viewportHeight * 0.7);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   React.useEffect(() => {
     if (!animationCompleteLogo) {

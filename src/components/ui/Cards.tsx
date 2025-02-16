@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import { useAnimation } from "../../context/AnimationContext";
 // Définir les couleurs possibles comme un type
 type CardColor = "blue" | "orange" | "green"; // ajouter les couleurs dont vous avez besoin
@@ -11,17 +11,13 @@ export default function Cards({
   animationComplete,
   index,
   category,
-  ref,
 }: {
   color: CardColor;
   animationComplete: boolean;
   index: number;
   category: string;
-  ref: any;
 }) {
-  const isInView = useInView(ref, { once: true });
-
-  const { setIsModalOpen, setValueModal, isModalOpen } = useAnimation();
+  const { setIsModalOpen, isModalOpen } = useAnimation();
   const bgColor =
     color === "blue"
       ? "bg-red-300/50"
@@ -36,7 +32,6 @@ export default function Cards({
       : "border-black/50";
   return (
     <motion.div
-      ref={ref}
       className={`${
         animationComplete ? "block" : "hidden"
       } overflow-hidden group relative w-auto max-w-[460px] h-[610px] uppercase font-satoshi cursor-pointer backdrop-blur-sm bg-white/60 hover:bg-white/0 transition-all duration-300 hover:backdrop-blur-none`}
