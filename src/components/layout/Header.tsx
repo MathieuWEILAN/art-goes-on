@@ -19,7 +19,7 @@ const Header = () => {
   const height = isMobile ? "60px" : "80px";
   const width = isMobile ? "60px" : "80px";
   const left = isMobile ? "10px" : "15px";
-  const top = isMobile ? "5px" : "10px";
+  const top = isMobile ? "5px" : "0px";
   const [hasScrolledPastScreen, setHasScrolledPastScreen] =
     React.useState(false);
 

@@ -50,7 +50,7 @@ const SelectComponent = ({
       ...styles,
       backgroundColor: "black",
       boxShadow: "none",
-      padding: 14,
+      padding: 4,
       paddingLeft: 0,
       minHeight: "unset",
       borderBottom: "1px solid white",

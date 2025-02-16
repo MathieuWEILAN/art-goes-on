@@ -29,7 +29,7 @@ const InputFooter = ({
           name={name}
           id={name}
           placeholder=" "
-          className="peer w-full bg-transparent text-base sm:text-lg text-white border-b border-white placeholder-transparent h-8 sm:h-12 relative z-0 focus:outline-none"
+          className="peer w-full bg-transparent text-base sm:text-lg text-white border-b border-white placeholder-transparent !h-8 sm:h-12 relative z-0 focus:outline-none"
           value={value}
           onChange={handleInputChange}
         />
