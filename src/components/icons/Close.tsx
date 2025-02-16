@@ -35,7 +35,6 @@ const Close = ({ isClosing, isModalOpen }: CloseProps) => {
           transform: isClosing ? "rotate(90deg)" : "rotate(45deg)",
           transformOrigin: "center",
           transition: "transform 0.3s ease-in-out",
-          opacity: isClosing ? 0 : 1,
         }}
       />
     </motion.svg>
