@@ -14,6 +14,20 @@ const Header = () => {
     isModalOpen,
   } = useAnimation();
 
+  const [hasScrolledPastScreen, setHasScrolledPastScreen] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      setHasScrolledPastScreen(scrollPosition >= windowHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   React.useEffect(() => {
     if (!animationCompleteLogo) {
       document.body.style.overflow = "hidden";
@@ -31,10 +45,10 @@ const Header = () => {
     <header
       className={`${
         animationCompleteLogo
-          ? "fixed top-0 left-0 w-full h-20"
+          ? "fixed top-0 left-0 w-full h-24"
           : "relative w-screen h-screen"
-      } flex justify-end items-center z-[100] px-5 gap-4 transition-colors duration-300 ${
-        isModalOpen ? "!w-[200px]" : ""
+      } flex justify-end items-center z-[100] px-5 gap-4 transition-colors duration-300 ml-2 ${
+        isModalOpen ? "!w-[100px] !bg-black delay-200" : ""
       }`}
     >
       <motion.div
