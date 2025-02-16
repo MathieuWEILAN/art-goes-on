@@ -49,12 +49,12 @@ body {
 }
 
 h2 {
-  @apply font-satoshi font-bold text-4xl mb-4;
+  @apply font-satoshi font-bold text-2xl lg:text-4xl mb-4;
 }
 p,
 ul,
 li {
-  @apply font-satoshi text-2xl mb-4;
+  @apply font-satoshi text-lg lg:text-2xl mb-4;
 }
 .carousel-container {
   display: flex;

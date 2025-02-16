@@ -81,7 +81,7 @@ const Logo = ({}) => {
       height="500"
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
-      className={"w-full h-full z-[100]"}
+      className={"w-full h-full z-[100] p-4 lg:p-0"}
       initial="hidden"
       animate="visible"
     >

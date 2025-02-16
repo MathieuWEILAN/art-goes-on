@@ -337,7 +337,7 @@ export default function Home() {
             exit={{ x: "100%" }}
             transition={{ duration: 0.4, delay: isClosing ? 0.8 : 0 }}
           >
-            <motion.div className="w-full text-left relative h-full flex flex-col lg:flex-row justify-center lg:justify-end items-center">
+            <motion.div className="w-full text-left relative pt-28 lg:pt-0 h-full flex flex-col lg:flex-row justify-start lg:justify-end items-center">
               <motion.button
                 className="absolute top-4 right-4 lg:top-0 lg:right-0"
                 onClick={handleModalClose}
@@ -357,7 +357,7 @@ export default function Home() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -50 }}
                   transition={{ duration: 0.4, delay: isClosing ? 0 : 1 }}
-                  className="w-full lg:w-1/3 ml-10 order-2 lg:order-1"
+                  className="w-full lg:w-1/3 lg:ml-10 order-2 lg:order-1"
                 >
                   <Image
                     src={modal.image}
@@ -365,7 +365,7 @@ export default function Home() {
                     className="w-full h-auto object-cover grayscale rounded-bl-[50px] lg:rounded-br-[0px]"
                   />
                 </motion.div>
-                <div className="flex flex-col gap-4 p-4 lg:p-10 h-full justify-center w-full lg:w-2/3 order-1 lg:order-2">
+                <div className="flex flex-col lg:p-10 h-full justify-center w-full lg:w-2/3 order-1 lg:order-2">
                   <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
