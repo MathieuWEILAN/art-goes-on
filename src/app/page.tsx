@@ -344,7 +344,7 @@ export default function Home() {
       <AnimatePresence>
         {modal && (
           <motion.section
-            className="w-[99.5vw] lg:rounded-bl-[100px] h-[99vh] overflow-hidden flex text-white justify-end items-center fixed top-0 right-0 bg-black z-50"
+            className="w-[99.5vw] rounded-bl-[50px] h-[99vh] overflow-hidden flex text-white justify-end items-center fixed top-0 right-0 bg-black z-50"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
