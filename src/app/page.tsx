@@ -397,7 +397,7 @@ export default function Home() {
           >
             <motion.div className="w-full text-left relative pt-28 lg:pt-0 h-full flex flex-col lg:flex-row justify-start lg:justify-end items-center">
               <motion.button
-                className="absolute top-4 right-4 lg:top-[60px] lg:right-0"
+                className="absolute  top-[60px] right-0"
                 onClick={handleModalClose}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
