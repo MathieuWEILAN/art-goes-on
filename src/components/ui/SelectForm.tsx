@@ -132,7 +132,7 @@ const SelectComponent = ({
   };
 
   return (
-    <div className="max-sm:w-full sm:flex-1 max-sm:pb-2 pt-5">
+    <div className="max-sm:w-full sm:flex-1 max-sm:pb-2 pt-4">
       <Select
         options={options}
         styles={colourStyles}
