@@ -36,7 +36,7 @@ const InputFooter = ({
 
         <label
           htmlFor={name}
-          className="leading-none absolute left-0 top-[-20px] font-satoshi uppercase tracking-widest text-white transition-all duration-300 ease-in-out peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm sm:peer-placeholder-shown:text-base peer-focus:top-[-20px] peer-focus:text-sm sm:peer-focus:text-base"
+          className="leading-none absolute left-0 top-[-16px] font-satoshi uppercase tracking-widest text-white transition-all duration-300 ease-in-out peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm sm:peer-placeholder-shown:text-base peer-focus:top-[-20px] peer-focus:text-[10px] sm:peer-focus:text-xs"
         >
           {label} {isRequired && <span className="text-white">*</span>}
         </label>
