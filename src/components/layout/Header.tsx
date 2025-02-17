@@ -53,7 +53,7 @@ const Header = () => {
         animationCompleteLogo ? "h-auto lg:h-20" : "h-screen bg-white"
       } fixed w-screen top-0 left-0 flex justify-end items-center z-[100] gap-4 px-5 transition-colors duration-300 py-2.5 backdrop-blur-sm ${
         hasScrolledPastScreen ? "md:bg-transparent bg-white" : "bg-transparent"
-      } ${isAtBottom && isMobile ? "!bg-transparent" : ""}`}
+      } ${(isAtBottom || isModalOpen) && isMobile ? "!bg-transparent" : ""}`}
     >
       <motion.div
         className={`${
