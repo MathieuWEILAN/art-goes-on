@@ -18,7 +18,7 @@ export default function RootLayout({
       <AnimationProvider>
         <body className={`antialiased`}>
           <Header />
-          <main className="relative z-10 bg-primary mb-[100vh] rounded-b-[50px]">
+          <main className="relative z-10 bg-primary mb-[100vh]">
             {children}
           </main>
           <footer className={`fixed bottom-0 left-0 w-full`}>

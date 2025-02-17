@@ -151,7 +151,7 @@ export default function Home() {
 
   return (
     <div
-      className={`overflow-hidden flex flex-col justify-center items-center relative`}
+      className={`overflow-hidden flex flex-col justify-center items-center relative min-h-screen min-w-screen bg-white`}
     >
       <motion.section
         className="relative w-screen h-screen overflow-hidden"
@@ -168,7 +168,7 @@ export default function Home() {
           playsInline
           preload="auto"
           className="absolute top-0 left-0 w-full h-[100%] object-cover"
-        />{" "}
+        />
         <motion.div
           className="h-full w-full"
           initial={{ y: "100%" }}

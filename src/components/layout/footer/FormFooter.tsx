@@ -133,7 +133,7 @@ const FooterForm = () => {
       onSubmit={handleSubmit}
       className="w-full h-auto flex flex-col text-white sm:gap-8"
     >
-      <div className="w-full flex flex-col sm:flex-row items-baseline justify-between sm:gap-10">
+      <div className="w-full flex flex-row items-baseline justify-between gap-10">
         <InputFooter
           value={formData.first_name}
           handleInputChange={handleInputChange}
@@ -153,7 +153,7 @@ const FooterForm = () => {
           isRequired={true}
         />
       </div>
-      <div className="flex flex-col sm:flex-row justify-between sm:gap-10">
+      <div className="flex flex-row justify-between gap-10">
         <InputFooter
           value={formData.email}
           handleInputChange={handleInputChange}
@@ -183,7 +183,7 @@ const FooterForm = () => {
           name="institution_type"
         />
       </div>
-      <div className="flex flex-col sm:flex-row justify-between sm:gap-10">
+      <div className="flex flex-row justify-between gap-10">
         <InputFooter
           value={formData.company}
           handleInputChange={handleInputChange}
