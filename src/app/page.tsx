@@ -9,6 +9,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { useAnimation } from "../context/AnimationContext";
+import { Swiper as SwiperType } from "swiper"; // Ajouter cet import
 import Marquee from "react-fast-marquee";
 const videoUrl = "/videos/joconde.mp4"; // La vidéo doit être dans le dossier public
 import Image, { StaticImageData } from "next/image";
@@ -91,6 +92,12 @@ const imagesData = [
     date: "Avril 2024",
   },
 ];
+
+type CursorContent =
+  | { type: "info"; data: (typeof imagesData)[0] }
+  | { type: "navigation"; text: "Précédent" | "Suivant" }
+  | false;
+
 export default function Home() {
   const { animationCompleteLogo, isModalOpen, setIsModalOpen, isMobile } =
     useAnimation();
@@ -98,10 +105,7 @@ export default function Home() {
   const [hovered, setHovered] = useState<number | null>(null);
   const ref = React.useRef(null);
   const isInView = useInView(ref, { amount: 0.5 }); // Trigger at 50% visibility
-  const [showCustomCursor, setShowCustomCursor] = useState<
-    | { img: StaticImageData; title: string; location: string; date: string }
-    | false
-  >(false);
+
   const [modal, setModal] = useState<
     | {
         name: string;
@@ -113,6 +117,11 @@ export default function Home() {
   >(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isClosing, setIsClosing] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [cursorContent, setCursorContent] = useState<CursorContent>(false);
+  const [hoveredSlideIndex, setHoveredSlideIndex] = useState<number | null>(
+    null
+  );
 
   const videoY = useTransform(scrollY, [0, 1000], [0, 1000]);
   const opacityMarquee = useTransform(scrollY, [0, 850], [1, 0]);
@@ -209,9 +218,13 @@ export default function Home() {
         </div>
       </motion.section>
       <motion.section className="w-full lg:w-screen flex overflow-auto bg-white gap-8 p-4 h-[240px] lg:h-screen relative">
-        {showCustomCursor && (
+        {cursorContent && (
           <motion.div
-            className="shadow-xl fixed w-[200px] h-[200px] p-4 rounded-full bg-white flex items-center justify-center text-black pointer-events-none z-50"
+            className={`shadow-xl fixed p-4 rounded-full flex items-center justify-center text-black pointer-events-none z-50 ${
+              cursorContent.type === "info"
+                ? "w-[200px] h-[200px] bg-white text-black"
+                : "w-[130px] h-[130px] bg-black text-white uppercase"
+            }`}
             style={{
               left: mousePosition.x - 50,
               top: mousePosition.y - 50,
@@ -220,42 +233,90 @@ export default function Home() {
             animate={{ scale: 1 }}
             transition={{ duration: 0.2 }}
           >
-            {showCustomCursor && (
+            {cursorContent.type === "info" ? (
               <div className="flex flex-col items-center justify-center">
                 <span className="font-bold text-base">
-                  {showCustomCursor.title}
+                  {cursorContent.data.title}
                 </span>
-                <span className="text-sm">{showCustomCursor.location}</span>
-                <time className="text-sm italic">{showCustomCursor.date}</time>
+                <span className="text-sm">{cursorContent.data.location}</span>
+                <time className="text-sm italic">
+                  {cursorContent.data.date}
+                </time>
               </div>
+            ) : (
+              <span className="font-bold text-sm uppercase font-satoshi tracking-widest">
+                {cursorContent.text}
+              </span>
             )}
           </motion.div>
         )}
 
         <Swiper
-          slidesPerView={1.3} // Affiche 1.3 slides visibles
-          spaceBetween={20} // Espacement entre les slides
-          pagination={{ clickable: true }} // Dots de pagination
-          modules={[Pagination]} // Active les modules nécessaires
+          slidesPerView={1.3}
+          spaceBetween={20}
+          pagination={{ clickable: true }}
+          modules={[Pagination]}
+          onSlideChange={(swiper) => {
+            setActiveIndex(swiper.activeIndex);
+            if (hoveredSlideIndex !== null) {
+              const image = imagesData[swiper.activeIndex];
+              if (hoveredSlideIndex === swiper.activeIndex) {
+                setCursorContent({ type: "info", data: image });
+              } else {
+                setCursorContent({
+                  type: "navigation",
+                  text:
+                    hoveredSlideIndex < swiper.activeIndex
+                      ? "Précédent"
+                      : "Suivant",
+                });
+              }
+            }
+          }}
         >
           {imagesData.map((image, index) => (
             <SwiperSlide key={index}>
               <div
-                className="relative overflow-hidden h-full cursor-none"
-                onMouseEnter={() => setShowCustomCursor(image)}
-                onMouseLeave={() => setShowCustomCursor(false)}
+                className="relative overflow-hidden h-full"
+                onMouseEnter={() => {
+                  setHoveredSlideIndex(index);
+                  if (index === activeIndex) {
+                    setCursorContent({ type: "info", data: image });
+                  } else {
+                    setCursorContent({
+                      type: "navigation",
+                      text: index < activeIndex ? "Précédent" : "Suivant",
+                    });
+                  }
+                }}
+                onMouseLeave={() => {
+                  setHoveredSlideIndex(null);
+                  setCursorContent(false);
+                }}
                 onMouseMove={updateMousePosition}
+                onClick={() => {
+                  if (index !== activeIndex) {
+                    const swiperEl = document.querySelector(
+                      ".swiper"
+                    ) as HTMLElement & { swiper: SwiperType };
+                    swiperEl?.swiper?.slideTo(index);
+                  }
+                }}
               >
                 <Image
                   src={image.img}
-                  priority={index === 0} // Priorité pour la première image seulement
+                  priority={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  quality={75} // Bon compromis qualité/performance
+                  quality={75}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4dHRsdHR4dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/2wBDAR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                   alt="Image"
-                  className="h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"
+                  className={`w-full h-full object-cover transition-all duration-1000 hover:scale-105 ${
+                    index === activeIndex
+                      ? "grayscale hover:grayscale-0"
+                      : "grayscale"
+                  }`}
                 />
               </div>
             </SwiperSlide>
