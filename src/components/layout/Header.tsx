@@ -54,7 +54,6 @@ const Header = () => {
 
   const handleMenuMobileClose = async () => {
     setIsClosing(true);
-    console.log("closing");
     await new Promise((resolve) => setTimeout(resolve, 500));
     setIsClosing(false);
     setIsMenuMobile(false);

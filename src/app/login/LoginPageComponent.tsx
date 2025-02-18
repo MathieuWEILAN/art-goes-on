@@ -55,7 +55,7 @@ const CardLogin = ({
   if (!animationCompleteLogo) return null;
   return (
     <motion.div
-      className={`w-full relative py-2 px-4 uppercase font-satoshi font-bold h-[calc(100vw-20px)] lg:h-[500px] w-[calc(100vw-20px)] lg:w-[500px] flex justify-center items-center`}
+      className={`w-full relative py-2 px-4 uppercase font-satoshi font-bold h-[calc(100vw-20px)] lg:h-[500px] w-[calc(100vw-20px)] m-4 lg:w-[500px] flex justify-center items-center`}
     >
       <motion.div
         className="text-[30px] sm:text-[50px] tracking-widest absolute bottom-0 right-0 flex flex-col text-right leading-[1]"
