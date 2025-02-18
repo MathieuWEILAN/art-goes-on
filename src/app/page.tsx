@@ -142,6 +142,19 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
+  React.useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup lors du démontage du composant
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isModalOpen]);
+
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
@@ -179,7 +192,7 @@ export default function Home() {
             <Marquee
               className="flex items-end overflow-hidden h-full"
               speed={200}
-              delay={6.5}
+              delay={0}
               direction="right"
             >
               <motion.div

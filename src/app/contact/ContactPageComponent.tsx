@@ -22,7 +22,7 @@ const ContactPageComponent = () => {
             ref={ref}
             initial={{ opacity: 0 }}
             animate={{ opacity: isInView ? 0.1 : 0 }}
-            transition={{ duration: 3 }}
+            transition={{ duration: 3.5 }}
           >
             Contactez-nous
           </motion.h1>

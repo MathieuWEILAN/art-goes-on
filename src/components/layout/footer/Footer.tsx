@@ -2,10 +2,13 @@
 import FormFooter from "../footer/FormFooter";
 import { useAnimation } from "../../../context/AnimationContext";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 const Footer = () => {
   const { animationCompleteLogo } = useAnimation();
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
+
   useEffect(() => {
     if (animationCompleteLogo) {
       setTimeout(() => {
@@ -13,18 +16,19 @@ const Footer = () => {
       }, 2000);
     }
   }, [animationCompleteLogo]);
+
   return (
     <div
-      className={`bg-black text-white min-h-screen h-full w-screen relative flex-col items-center justify-center ${
+      className={`bg-black text-white min-h-screen h-full w-screen relative flex-col items-center justify-center px-4 ${
         isVisible ? "flex" : "hidden"
       }`}
     >
-      <div className="container mx-auto px-4 h-full w-full flex flex-col items-center justify-center">
+      <div className="container mx-auto h-full w-full flex flex-col items-center justify-center">
         <h2 className="w-full text-left uppercase tracking-widest">
           Inscrivez-vous
         </h2>
         <FormFooter />
-        <div className="w-full flex flex-col lg:flex-row justify-between items-center text-sm absolute bottom-0 px-5">
+        <div className="w-full flex flex-col lg:flex-row justify-between items-center text-sm absolute bottom-0 px-4">
           <div className="flex gap-4 mb-4">
             <Link
               href="/mentions-legales"

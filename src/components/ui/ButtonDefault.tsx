@@ -7,15 +7,17 @@ const ButtonDefault = ({
   action,
   type = "button",
   color = "black",
+  className,
 }: {
   children: React.ReactNode;
   action: () => void;
   type?: "submit" | "button";
   color?: "white" | "black";
+  className?: string;
 }) => {
   return (
     <motion.button
-      className="w-fit relative py-2 px-4 uppercase font-satoshi font-bold"
+      className={`w-fit relative py-2 px-4 uppercase font-satoshi font-bold ${className}`}
       whileHover="hover"
       onClick={action}
       type={type}

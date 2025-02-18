@@ -5,17 +5,18 @@ import { useAnimation } from "../../context/AnimationContext";
 import React, { useState } from "react";
 import Link from "next/link";
 const Logo = ({}) => {
-  const { setAnimationComplete, isModalOpen, isAtBottom } = useAnimation();
+  const { setAnimationComplete, isModalOpen, isAtBottom, isMenuMobile } =
+    useAnimation();
   const [color, setColor] = useState("#000");
   React.useEffect(() => {
-    if (isModalOpen) {
+    if (isModalOpen || isMenuMobile) {
       setTimeout(() => {
         setColor("#fff");
       }, 300);
     } else {
       setColor("#000");
     }
-  }, [isModalOpen]);
+  }, [isModalOpen, isMenuMobile]);
 
   React.useEffect(() => {
     if (isAtBottom) {
@@ -81,7 +82,7 @@ const Logo = ({}) => {
   };
 
   return (
-    <Link href="/">
+    <Link href="/" className="z-50">
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"
         width="500"
@@ -90,7 +91,7 @@ const Logo = ({}) => {
         height="500"
         preserveAspectRatio="xMidYMid meet"
         version="1.0"
-        className={"w-full h-full z-[100]"}
+        className={"w-full h-full z-50"}
         initial="hidden"
         animate="visible"
       >

@@ -16,6 +16,8 @@ type AnimationContextType = {
   setValueModal: (value: ValueModal) => void;
   isAtBottom: boolean;
   isMobile: boolean;
+  isMenuMobile: boolean;
+  setIsMenuMobile: (value: boolean) => void;
 };
 
 const AnimationContext = createContext<AnimationContextType | undefined>(
@@ -29,6 +31,7 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMenuMobile, setIsMenuMobile] = useState(false);
   // ... existing code ...
 
   // Ajouter cette fonction pour détecter le scroll
@@ -67,6 +70,8 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         setValueModal,
         isAtBottom,
         isMobile,
+        isMenuMobile,
+        setIsMenuMobile,
       }}
     >
       {children}
