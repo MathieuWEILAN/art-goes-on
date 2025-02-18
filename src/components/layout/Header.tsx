@@ -136,7 +136,6 @@ const Header = () => {
             isMenuMobile={isMenuMobile}
             setIsMenuMobile={setIsMenuMobile}
             handleMenuMobileClose={handleMenuMobileClose}
-            isClosing={isClosing}
           />
         </div>
       )}
