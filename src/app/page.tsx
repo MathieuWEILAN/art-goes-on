@@ -104,7 +104,9 @@ export default function Home() {
   const { scrollY } = useScroll();
   const [hovered, setHovered] = useState<number | null>(null);
   const ref = React.useRef(null);
+  const ref2 = React.useRef(null);
   const isInView = useInView(ref, { amount: 0.5 }); // Trigger at 50% visibility
+  const isInView2 = useInView(ref2, { amount: 0.5 }); // Trigger at 50% visibility
 
   const [modal, setModal] = useState<
     | {
@@ -336,7 +338,16 @@ export default function Home() {
           ))}
         </Swiper>
       </motion.section>
-      <motion.section className="w-screen min-h-screen overflow-hidden px-5 flex justify-end items-center">
+      <motion.section className="w-screen min-h-screen overflow-hidden px-5 flex justify-end items-center relative">
+        <motion.div
+          className="max-lg:hidden lg:text-[15vw] font-bold absolute bottom-[180px] lg:!bottom-10 right-[20px] lg:left-[40px] text-black"
+          ref={ref2}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView2 ? 0.1 : 0 }}
+          transition={{ duration: 2 }}
+        >
+          Art Goes On
+        </motion.div>
         <div className="w-full lg:w-2/3 text-left">
           <Fade
             direction="up"

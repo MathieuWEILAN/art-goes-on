@@ -18,6 +18,12 @@ const LoginPageComponent = () => {
       document.body.style.overflow = "unset";
       document.documentElement.style.overflow = "unset";
     }
+
+    // Cleanup: réactive le scroll quand on quitte la page
+    return () => {
+      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "unset";
+    };
   }, [isCreatingAccount]);
 
   return (
