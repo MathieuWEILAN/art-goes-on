@@ -2,12 +2,10 @@
 import FormFooter from "../footer/FormFooter";
 import { useAnimation } from "../../../context/AnimationContext";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 const Footer = () => {
   const { animationCompleteLogo } = useAnimation();
   const [isVisible, setIsVisible] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
     if (animationCompleteLogo) {

@@ -4,13 +4,11 @@ interface ButtonMobileProps {
   setIsMenuMobile: (value: boolean) => void;
   isMenuMobile: boolean;
   handleMenuMobileClose: () => void;
-  isClosing: boolean;
 }
 const ButtonMenuMobile = ({
   isMenuMobile,
   setIsMenuMobile,
   handleMenuMobileClose,
-  isClosing,
 }: ButtonMobileProps) => {
   const handleClick = () => {
     if (isMenuMobile) {
